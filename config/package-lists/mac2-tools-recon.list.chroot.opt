@@ -1,0 +1,9 @@
+# Information gathering
+nmap
+masscan
+arp-scan
+netdiscover
+dnsrecon
+dnsenum
+whatweb
+fierce

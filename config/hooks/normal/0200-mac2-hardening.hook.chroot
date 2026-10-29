@@ -1,0 +1,11 @@
+#!/bin/sh
+# Pentest-distro defaults: network services stay off until the user starts them.
+set -e
+for svc in ssh tor; do
+	systemctl disable "$svc" 2>/dev/null || true
+done
+# Let the default user capture packets without root.
+if getent group wireshark >/dev/null; then
+	echo "wireshark-common wireshark-common/install-setuid boolean true" | debconf-set-selections
+	dpkg-reconfigure -f noninteractive wireshark-common || true
+fi

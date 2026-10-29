@@ -1,0 +1,54 @@
+#!/bin/sh
+# live-build configuration for mac2. Normally called by ./build.sh, which
+# exports the MAC2_* variables below.
+#
+#   MAC2_BASE=debian  (default) Debian 13 "trixie" stable base
+#   MAC2_BASE=kali    Kali rolling base, gives access to Kali-only tools
+set -e
+
+MAC2_VERSION="${MAC2_VERSION:-$(date +%Y.%m)}"
+MAC2_ARCH="${MAC2_ARCH:-amd64}"
+MAC2_BASE="${MAC2_BASE:-debian}"
+AREAS="main contrib non-free non-free-firmware"
+
+case "$MAC2_BASE" in
+debian)
+	DIST=trixie
+	MIRROR=http://deb.debian.org/debian/
+	set -- --security true --updates true "$@"
+	;;
+kali)
+	DIST=kali-rolling
+	MIRROR=http://http.kali.org/kali
+	set -- --security false --updates false \
+		--debootstrap-options "--keyring=/usr/share/keyrings/kali-archive-keyring.gpg" \
+		--keyring-packages kali-archive-keyring "$@"
+	;;
+*)
+	echo "auto/config: unknown MAC2_BASE '$MAC2_BASE'" >&2
+	exit 1
+	;;
+esac
+
+lb config noauto \
+	--distribution "$DIST" \
+	--parent-distribution "$DIST" \
+	--debian-installer-distribution "$DIST" \
+	--architectures "$MAC2_ARCH" \
+	--archive-areas "$AREAS" \
+	--parent-archive-areas "$AREAS" \
+	--mirror-bootstrap "$MIRROR" \
+	--mirror-binary "$MIRROR" \
+	--parent-mirror-bootstrap "$MIRROR" \
+	--parent-mirror-binary "$MIRROR" \
+	--debian-installer live \
+	--debian-installer-gui true \
+	--bootappend-live "boot=live components quiet splash hostname=mac2 username=mac2 user-fullname=mac2" \
+	--iso-application "mac2" \
+	--iso-publisher "mac2 project" \
+	--iso-volume "mac2 $MAC2_VERSION" \
+	--image-name "mac2-$MAC2_VERSION-$MAC2_ARCH" \
+	--memtest none \
+	--apt-recommends false \
+	--cache true \
+	"$@"

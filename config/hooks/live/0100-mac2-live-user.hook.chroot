@@ -1,0 +1,10 @@
+#!/bin/sh
+# Live session user "mac2" (password "mac2") gets the same groups as Kali's live user.
+set -e
+mkdir -p /etc/live/config.conf.d
+cat > /etc/live/config.conf.d/mac2.conf <<CONF
+LIVE_USERNAME="mac2"
+LIVE_USER_FULLNAME="mac2 live user"
+LIVE_HOSTNAME="mac2"
+LIVE_USER_DEFAULT_GROUPS="audio cdrom dialout floppy video plugdev netdev wireshark bluetooth sudo"
+CONF

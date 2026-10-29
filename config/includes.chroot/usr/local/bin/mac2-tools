@@ -1,0 +1,12 @@
+#!/bin/sh
+# List the mac2 tool categories and which tools are installed.
+for f in /usr/share/mac2/tools/*.list; do
+	[ -e "$f" ] || { echo "No tool lists found."; exit 0; }
+	cat=$(basename "$f" .list)
+	printf '\n\033[1;36m%s\033[0m\n' "$cat"
+	grep -v '^#' "$f" | while read -r pkg; do
+		[ -n "$pkg" ] || continue
+		if dpkg -s "$pkg" >/dev/null 2>&1; then mark='\033[32m✓\033[0m'; else mark='\033[2m·\033[0m'; fi
+		printf "  $mark %s\n" "$pkg"
+	done
+done

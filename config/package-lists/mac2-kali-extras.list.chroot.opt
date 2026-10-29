@@ -1,0 +1,17 @@
+# Tools only packaged by Kali. Installed only when MAC2_KALI_REPO=1.
+metasploit-framework
+burpsuite
+exploitdb
+seclists
+wordlists
+wpscan
+responder
+netexec
+evil-winrm
+enum4linux
+zaproxy
+recon-ng
+theharvester
+amass
+commix
+kismet

@@ -1,0 +1,30 @@
+#!/bin/sh
+# Brand the installed system as mac2.
+set -e
+
+. /etc/mac2-build-info 2>/dev/null || true
+VERSION="${MAC2_VERSION:-rolling}"
+
+cat > /etc/os-release <<OS
+PRETTY_NAME="mac2 GNU/Linux $VERSION"
+NAME="mac2 GNU/Linux"
+VERSION="$VERSION"
+VERSION_ID="$VERSION"
+VERSION_CODENAME=mac2
+ID=mac2
+ID_LIKE="debian kali"
+HOME_URL="https://github.com/mubeakungu/mac2"
+SUPPORT_URL="https://github.com/mubeakungu/mac2/issues"
+BUG_REPORT_URL="https://github.com/mubeakungu/mac2/issues"
+OS
+ln -sf ../etc/os-release /usr/lib/os-release 2>/dev/null || true
+
+printf 'mac2 GNU/Linux %s \\n \\l\n\n' "$VERSION" > /etc/issue
+echo "mac2 GNU/Linux $VERSION" > /etc/issue.net
+echo mac2 > /etc/hostname
+
+# zsh as default shell for new users, like Kali
+if [ -x /usr/bin/zsh ]; then
+	sed -i 's|^DSHELL=.*|DSHELL=/usr/bin/zsh|' /etc/adduser.conf
+	sed -i 's|^SHELL=.*|SHELL=/usr/bin/zsh|' /etc/default/useradd 2>/dev/null || true
+fi

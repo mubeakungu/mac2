@@ -1,0 +1,6 @@
+# Reverse engineering
+gdb
+radare2
+ltrace
+strace
+binutils
