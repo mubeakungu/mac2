@@ -12,7 +12,7 @@ zsh-autosuggestions
 zsh-syntax-highlighting
 net-tools
 iproute2
-dnsutils
+bind9-dnsutils
 whois
 openssh-client
 openssh-server
