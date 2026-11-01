@@ -1,3 +1,6 @@
 #!/bin/sh
 set -e
-lb build noauto "${@}" 2>&1 | tee build.log
+# Keep lb's exit status despite the pipe through tee.
+{ lb build noauto "${@}" 2>&1; echo $? > .build-rc; } | tee build.log
+rc=$(cat .build-rc); rm -f .build-rc
+exit "$rc"

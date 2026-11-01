@@ -4,5 +4,4 @@ gobuster
 dirb
 wfuzz
 ffuf
-wapiti
 nikto

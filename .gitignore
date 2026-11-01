@@ -20,3 +20,4 @@ config/source
 config/package-lists/sel-*.list.chroot
 config/includes.chroot/etc/mac2-build-info
 config/includes.chroot/usr/share/mac2/
+.build-rc

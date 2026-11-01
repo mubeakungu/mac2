@@ -21,13 +21,13 @@ boot live from USB or install to disk.
 | Category    | Examples                                                    |
 |-------------|-------------------------------------------------------------|
 | `recon`     | nmap, masscan, arp-scan, netdiscover, dnsrecon, whatweb     |
-| `web`       | sqlmap, gobuster, ffuf, wfuzz, dirb, wapiti, nikto          |
+| `web`       | sqlmap, gobuster, ffuf, wfuzz, dirb, nikto          |
 | `passwords` | john, hashcat, hydra, medusa, crunch, cewl                  |
 | `wireless`  | aircrack-ng, reaver, bully, wifite, hcxtools, pixiewps      |
 | `sniffing`  | wireshark, tshark, tcpdump, ettercap, bettercap, dsniff     |
 | `exploit`   | netcat, ncat, socat, impacket, proxychains4, tor            |
 | `forensics` | sleuthkit, autopsy, binwalk, foremost, testdisk, yara       |
-| `reversing` | gdb, radare2, ltrace, strace                                |
+| `reversing` | gdb, ltrace, strace                                |
 | `kali-extras` (Kali base only) | metasploit, burpsuite, exploitdb, seclists, wpscan, netexec, zaproxy |
 
 Package lists live in `config/package-lists/*.list.chroot.opt`. Add a package by adding a line.

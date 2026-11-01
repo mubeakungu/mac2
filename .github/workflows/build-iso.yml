@@ -33,7 +33,9 @@ jobs:
             -e MAC2_BASE="${{ inputs.base || 'debian' }}" \
             -e MAC2_TOOLS="${{ inputs.tools || 'recon web passwords wireless sniffing exploit forensics reversing' }}" \
             debian:trixie sh -c '
+              sed -i "s/^Components: main$/Components: main contrib non-free non-free-firmware/" /etc/apt/sources.list.d/debian.sources &&
               apt-get update &&
+              { [ "$MAC2_BASE" = kali ] || ./scripts/check-packages.sh; } &&
               apt-get install -y --no-install-recommends live-build debootstrap curl gpg ca-certificates \
                 xorriso squashfs-tools grub-pc-bin grub-efi-amd64-bin mtools dosfstools syslinux isolinux &&
               ./build.sh'
